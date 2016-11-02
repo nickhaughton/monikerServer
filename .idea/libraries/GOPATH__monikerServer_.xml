@@ -1,10 +1,12 @@
 <component name="libraryTable">
-  <library name="GOPATH &lt;Moniker&gt;">
+  <library name="GOPATH &lt;monikerServer&gt;">
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/../Moniker" />
       <root url="file://$PROJECT_DIR$/../github.com" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
+      <root url="file://$PROJECT_DIR$/../Moniker" />
       <root url="file://$PROJECT_DIR$/../github.com" />
     </SOURCES>
     <excluded>

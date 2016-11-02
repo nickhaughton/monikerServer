@@ -17,7 +17,7 @@ var router mux.Router
 
 var c redis.Conn
 var err error
-
+var urlLength = 2;
 func main() {
 	initRand()
 	initRedis()
@@ -37,11 +37,10 @@ func initRouting(router *mux.Router){
 		Methods("GET")
 	router.HandleFunc("/validateURL/{url}", urlSuffixValidatorHandler).
 		Methods("GET")
-	router.HandleFunc("/getMoniker/{url}", getMonikerHandler).
+	router.HandleFunc("/profile/{url}", getMonikerHandler).
 		Methods("GET")
-	router.HandleFunc("/createMoniker", createMonikerHandler).
+	router.HandleFunc("/create", createMonikerHandler).
 		Methods("POST")
-
 	router.HandleFunc("/{anypath}", monikerHandler).
 		Methods("GET")
 }
@@ -186,7 +185,7 @@ func monikerHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func urlSuffixGeneratorHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(GetFreeURL(2)))
+	w.Write([]byte(GetFreeURL()))
 }
 
 func urlSuffixValidatorHandler(w http.ResponseWriter, r *http.Request) {
@@ -201,7 +200,7 @@ func urlSuffixValidatorHandler(w http.ResponseWriter, r *http.Request) {
 		v.ValidUrl = s
 		v.IsValid = true
 	}else {
-		v.ValidUrl = GetFreeURL(2)
+		v.ValidUrl = GetFreeURL()
 		v.IsValid = false
 	}
 
@@ -209,8 +208,7 @@ func urlSuffixValidatorHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(j))
 }
 
-func GetFreeURL(length int) string {
-	urlLength := length
+func GetFreeURL() string {
 	var urlValid = false
 	var result string
 	var attempts int
